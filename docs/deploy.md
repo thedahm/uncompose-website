@@ -95,10 +95,24 @@ Every `.cc` response must be `301` (permanent), not `302`, and must carry the pa
 query through. These are checks against deployed DNS and account state, which CI cannot
 honestly reproduce, so they belong to the release checklist and are run by hand.
 
+The schema URLs are likewise live-deployed state (Pages serving `site/_headers`), so their
+content type and reachability are checked here rather than in CI, which only checks the
+committed files (`tests/check_schemas.py`, [ADR-0003](adr/0003-schema-hosting-and-static-site-ci.md)):
+
+```sh
+schema_check() { curl -sI "$1" | grep -iE '^(HTTP/|content-type:)'; }
+
+schema_check https://uncompose.org/schemas/project/v0/uncompose.project.schema.json
+schema_check https://uncompose.org/schemas/compare/v0/uncompose.compare.schema.json
+```
+
+Both must be `200` with a `content-type` starting `application/json`.
+
 ## Day to day
 
-- **Publishing** is `git push` to `main`. There is no deploy workflow, no secret, and no
-  local tooling.
+- **Publishing** is merging a PR into `main` (`main` is ruleset-protected, PR-only).
+  There is no deploy workflow, no secret, and no local tooling — Pages deploys the
+  merge commit on its own.
 - **Rolling back** is the Pages project's deployment list: open a previous deployment and
   promote it. Then fix forward in git — the console rollback is a stopgap, not the truth.
 - **Checking what shipped**: the deployment list shows the commit behind each deploy.
