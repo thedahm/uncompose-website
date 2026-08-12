@@ -7,18 +7,17 @@ conformance tests that exercise it:
 
 | Served path | Owner | Pinned from |
 | --- | --- | --- |
-| `schemas/project/v0/uncompose.project.schema.json` | [`thedahm/uncompose-project`](https://github.com/thedahm/uncompose-project) (`schemas/project/v0/`) | `main` @ [`d178b5d`](https://github.com/thedahm/uncompose-project/commit/d178b5de5f4eb171e1ef1fcecb9bbd917be70bd4) |
-| `schemas/compare/v0/uncompose.compare.schema.json` | [`thedahm/uncompose-compare`](https://github.com/thedahm/uncompose-compare) (`schemas/compare/v0/`) | `main` @ [`9e7fd4a`](https://github.com/thedahm/uncompose-compare/commit/9e7fd4aae87b8199d3a23142ef3d02ce66424f8e) |
+| `schemas/project/v0/uncompose.project.schema.json` | [`thedahm/uncompose-project`](https://github.com/thedahm/uncompose-project) (`schemas/project/v0/`) | [`v0.1.0`](https://github.com/thedahm/uncompose-project/tree/v0.1.0) |
+| `schemas/compare/v0/uncompose.compare.schema.json` | [`thedahm/uncompose-compare`](https://github.com/thedahm/uncompose-compare) (`schemas/compare/v0/`) | [`v0.1.0`](https://github.com/thedahm/uncompose-compare/tree/v0.1.0) |
 
 [`sources.json`](sources.json) records the same pins in a form `tests/check_schemas.py`
 reads. It lives here rather than under `site/` because it is repo documentation, not
 something a schema consumer needs — `site/` is exactly what a visitor and a validator
 receive (ADR-0001).
 
-Neither tool has cut a v0.1.0 tag yet, so both pins are commit SHAs rather than release
-tags. Once a tool tags a release, its pin here moves to that tag as part of the release
-checklist (uncompose#92 story 25) — this is manual by design, the same way the vendored
-copy in `uncompose-project`'s own `schemas/vendor/` is manually pinned.
+Each pin moves to the new release tag as part of the release checklist (uncompose#92
+story 25) — this is manual by design, the same way the vendored copy in
+`uncompose-project`'s own `schemas/vendor/` is manually pinned.
 
 CI (`tests/check_schemas.py`) fetches each schema from its pinned ref on GitHub and fails
 if the committed copy has drifted, so staleness between what's served and what's pinned
