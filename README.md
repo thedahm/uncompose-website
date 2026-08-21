@@ -41,7 +41,8 @@ setup they depend on is written down step by step in [`docs/deploy.md`](docs/dep
 
 ## Status
 
-Pre-v0.1, like the rest of the family. The landing page and the family's JSON Schemas
+The family is released: uncompose v0.2.0 and both extensions' v0.1.0 are on PyPI. The
+landing page and the family's JSON Schemas
 (served at their identifier URLs under `/schemas/`, see
 [`schemas/README.md`](schemas/README.md) and
 [ADR-0003](docs/adr/0003-schema-hosting-and-static-site-ci.md)) are both in place.
